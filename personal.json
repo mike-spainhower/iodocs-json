@@ -42,6 +42,12 @@
                 "Filter only gems that others have shared to the user"
               ],
               "location": "pathReplace"
+            },
+            "Authorization": {
+              "type": "string",
+              "required": true,
+              "description": "Bearer <access_token>",
+              "location": "header"
             }
           }
         },
@@ -55,6 +61,81 @@
               "required": true,
               "description": "Instance ID of a specific gem in the form <user_id>#<template_id>#<gem_id>",
               "location": "pathReplace"
+            },
+            "Authorization": {
+              "type": "string",
+              "required": true,
+              "description": "Bearer <access_token>",
+              "location": "header"
+            },
+            "Secure-Password": {
+              "type": "string",
+              "required": true,
+              "description": "<password>",
+              "location": "header"
+            }
+          }
+        },
+        "Write to Existing Gem": {
+          "path": "/api/v1/gems/:gem_instance_id",
+          "httpMethod": "PUT",
+          "description": "Write to existing gem. Values specified in the JSON are saved in the database. Values NOT specified in the JSON that already exist in database will be deleted.",
+          "parameters": {
+            ":gem_instance_id": {
+              "type": "string",
+              "required": true,
+              "description": "Instance ID of a specific gem in the form <user_id>#<template_id>#<gem_id>",
+              "location": "pathReplace"
+            },
+            "Authorization": {
+              "type": "string",
+              "required": true,
+              "description": "Bearer <access_token>",
+              "location": "header"
+            },
+            "Secure-Password": {
+              "type": "string",
+              "required": true,
+              "description": "<password>",
+              "location": "header"
+            }
+          }
+        },
+        "Create New Gem": {
+          "path": "/api/v1/gems",
+          "httpMethod": "POST",
+          "description": "Creates a new gem based on request's json body and returns the new gem with instance ID",
+          "parameters": {
+            "Authorization": {
+              "type": "string",
+              "required": true,
+              "description": "Bearer <access_token>",
+              "location": "header"
+            },
+            "Secure-Password": {
+              "type": "string",
+              "required": true,
+              "description": "<password>",
+              "location": "header"
+            }
+          }
+        },
+        "Delete Existing Gem": {
+          "path": "/api/v1/gems/:gem_instance_id",
+          "httpMethod": "POST",
+          "description": "Deletes an existing gem and returns the gem as json",
+          "parameters": {
+            ":gem_instance_id": {
+              "type": "string",
+              "required": true,
+              "description": "Instance ID of a specific gem in the form <user_id>#<template_id>#<gem_id>",
+              "location": "pathReplace"
+            },
+            "Authorization": {
+              "type": "string",
+              "required": true,
+              "description": "Bearer <access_token>",
+              "location": "header"
             }
           }
         }

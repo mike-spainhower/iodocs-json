@@ -50,6 +50,18 @@ gem_instance_id =
     description: "Instance ID of a specific gem in the form <user_id>#<template_id>#<gem_id>"
     location: loc_pr
 
+auth_hdr =
+    type: "string"
+    required: true
+    description: "Bearer <access_token>"
+    location: loc_h
+
+sec_pwd =
+    type: "string"
+    required: true
+    description: "<password>"
+    location: loc_h
+
 #Create a list of resources and add to iodocs_obj later
 resources = []
 
@@ -74,13 +86,38 @@ resources.push
                         "Filter only gems that others have shared to the user" #others
                     ]
                     location: loc_pr
+                Authorization: auth_hdr
         "Read Existing Gem":
             path: "#{api_path_pre}gems/:gem_instance_id"
             httpMethod: get
             description: "Gets the gem data for specified gem instance id."
             parameters:
                 ":gem_instance_id": gem_instance_id
-
+                "Authorization": auth_hdr
+                "Secure-Password": sec_pwd
+        "Write to Existing Gem":
+            path: "#{api_path_pre}gems/:gem_instance_id"
+            httpMethod: put
+            description: "Write to existing gem. Values specified in the JSON are saved in the database. Values NOT specified in the JSON that already exist in database will be deleted."
+            parameters:
+                ":gem_instance_id": gem_instance_id
+                "Authorization": auth_hdr
+                "Secure-Password": sec_pwd
+        "Create New Gem":
+            path: "#{api_path_pre}gems"
+            httpMethod: post
+            description: "Creates a new gem based on request's json body and returns the new gem with instance ID"
+            parameters:
+                "Authorization": auth_hdr
+                "Secure-Password": sec_pwd
+        "Delete Existing Gem":
+            path: "#{api_path_pre}gems/:gem_instance_id"
+            httpMethod: post
+            description: "Deletes an existing gem and returns the gem as json"
+            parameters:
+                ":gem_instance_id": gem_instance_id
+                "Authorization": auth_hdr
+            
 #Add resources to root object
 for res in resources
     iodocs_obj.resources[res.name] = {methods: {}}
