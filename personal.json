@@ -1,0 +1,64 @@
+{
+  "name": "Personal API",
+  "version": "1.0",
+  "title": "Personal API",
+  "description": "This is the IO Docs for the Personal API",
+  "protocol": "rest",
+  "basePath": "https://api-sandbox.personal.com",
+  "auth": {
+    "oauth": {
+      "version": "2.0",
+      "base_uri": "https://api-sandbox.personal.com",
+      "authorize_uri": "/oauth/authorize",
+      "access_token_uri": "/oauth/access_token",
+      "auth_flows": [
+        "auth_code"
+      ],
+      "options": {
+        "authorize": {
+          "scope": []
+        }
+      }
+    }
+  },
+  "resources": {
+    "Gems": {
+      "methods": {
+        "Get Gem List": {
+          "path": "/api/v1/gems/:filter",
+          "httpMethod": "GET",
+          "description": "Retrieve a list of gem IDs and corresponding names",
+          "parameters": {
+            ":filter": {
+              "type": "string",
+              "required": false,
+              "description": "Filter only certain gem instances",
+              "enum": [
+                "my",
+                "others"
+              ],
+              "enumDescriptions": [
+                "Filter only the user's gems",
+                "Filter only gems that others have shared to the user"
+              ],
+              "location": "pathReplace"
+            }
+          }
+        },
+        "Read Existing Gem": {
+          "path": "/api/v1/gems/:gem_instance_id",
+          "httpMethod": "GET",
+          "description": "Gets the gem data for specified gem instance id.",
+          "parameters": {
+            ":gem_instance_id": {
+              "type": "string",
+              "required": true,
+              "description": "Instance ID of a specific gem in the form <user_id>#<template_id>#<gem_id>",
+              "location": "pathReplace"
+            }
+          }
+        }
+      }
+    }
+  }
+}
